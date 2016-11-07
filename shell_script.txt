@@ -1,0 +1,19 @@
+"""this document demonstrates the steps taken 
+to convert the ASX file downloaded at:
+http://asic.gov.au/regulatory-resources/markets/short-selling/short-position-reports-table/
+to several csv files that can then be easily read
+and manipulated as a dataframe in python."""
+
+# first navigate to the location of the downloaded data file
+
+# create csv of the column names
+sed '3q;d' RR20151231-002-SSDailyYTD.csv > colnames.csv
+
+# create csv of the date row
+sed '2q;d' RR20161028-001-SSDailyYTD.csv > date.csv
+
+# create csv containing the complete data set (excluding columns)
+cat RR20161028-001-SSDailyYTD.csv | tail -n +5 > data.csv
+
+# merge the column names and the complete data
+cat colnames.csv data.csv > joined.csv
